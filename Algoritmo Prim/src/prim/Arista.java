@@ -12,11 +12,27 @@ public class Arista implements Comparable<Arista> {
 		this.costo = costo;
 	}
 
+	public Arista(Arista arista) {
+		this.nodo1 = arista.nodo1;
+		this.nodo2 = arista.nodo2;
+		this.costo = arista.costo;
+	}
+	
+	public int getNodo1() {
+		return this.nodo1;
+	}
+	
+	public int getNodo2() {
+		return this.nodo2;
+	}
+	
+	public int getCosto() {
+		return this.costo;
+	}
+	
 	@Override
 	public int compareTo(Arista arista) {
 		return this.costo - arista.costo;
 	}
-	
-	
 	
 }

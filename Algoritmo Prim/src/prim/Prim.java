@@ -11,11 +11,12 @@ public class Prim {
 	private int cantidadNodos;
 	private int cantidadAristasTotal;
 	private int cantidadAristasUsadas;
-	private int[][] matrizAdyacencia;
 	private int costo;
 	private ArrayList<Integer> visitados = new ArrayList<Integer>();
 	private ArrayList<Integer> noVisitados = new ArrayList<Integer>();
 	private ArrayList<Arista> aristas = new ArrayList<Arista>();
+	private ArrayList<Arista> grafo = new ArrayList<Arista>();
+	private Arista[] aristasTotal;
 	
 	public Prim(Scanner entrada) {
 		int nodo1, nodo2, costo;
@@ -23,13 +24,18 @@ public class Prim {
 		this.cantidadAristasUsadas = 0;
 		this.cantidadNodos = entrada.nextInt();
 		this.cantidadAristasTotal = entrada.nextInt();
-		this.matrizAdyacencia = new int[this.cantidadNodos][this.cantidadNodos];
+		this.aristasTotal = new Arista[this.cantidadAristasTotal];
 		for(int i = 0; i < this.cantidadAristasTotal; i++) {
 			nodo1 = entrada.nextInt() - 1;
 			nodo2 = entrada.nextInt() - 1;
-			costo = entrada.nextInt() - 1;
-			this.aristas.add(new Arista(nodo1, nodo2, costo));
+			costo = entrada.nextInt();
+			this.aristasTotal[i] = new Arista(nodo1,nodo2,costo);
 		}
+		Arrays.sort(aristasTotal);
+		for(int i = 0; i < this.cantidadAristasTotal; i++) {
+			aristas.add(this.aristasTotal[i]);
+		}
+		aristasTotal = null;
 	}
 	
 	private void inicializarListas(int nodo) {
@@ -41,11 +47,34 @@ public class Prim {
 		}
 	}
 	
+	private Arista seAgrega() {
+		Arista arista = null;
+		boolean encontrado = false;
+		int i=0;
+		while(i < this.cantidadAristasTotal && encontrado == false) {
+			arista = this.aristas.get(i);
+			if(this.visitados.contains(arista.getNodo1()) == false && 
+					this.visitados.contains(arista.getNodo2()) == false){
+				if(this.visitados.contains(arista.getNodo1()) == false) {
+					this.visitados.add(this.noVisitados.remove(arista.getNodo1()));
+				}
+				if(this.visitados.contains(arista.getNodo2()) == false) {
+					this.visitados.add(this.noVisitados.remove(arista.getNodo2()));
+				}
+				encontrado = true;
+			}
+			i++;
+		}
+		return arista;
+	}
 	
 	public void calcularCosto(int nodo) {
+		Arista aux;
 		this.inicializarListas(nodo);
 		while(this.cantidadAristasUsadas != this.cantidadNodos-1) {
-			
+			aux = seAgrega();
+			this.grafo.add(aux);
+			this.cantidadAristasUsadas++;
 		}
 	}
 	
