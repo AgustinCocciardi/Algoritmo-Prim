@@ -1,6 +1,6 @@
 package prim;
 
-public class Arista {
+public class Arista implements Comparable<Arista> {
 	
 	private int nodo1;
 	private int nodo2;
@@ -11,5 +11,12 @@ public class Arista {
 		this.nodo2 = nodo2;
 		this.costo = costo;
 	}
+
+	@Override
+	public int compareTo(Arista arista) {
+		return this.costo - arista.costo;
+	}
+	
+	
 	
 }

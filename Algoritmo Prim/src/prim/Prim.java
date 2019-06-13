@@ -16,7 +16,6 @@ public class Prim {
 	private ArrayList<Integer> visitados = new ArrayList<Integer>();
 	private ArrayList<Integer> noVisitados = new ArrayList<Integer>();
 	private ArrayList<Arista> aristas = new ArrayList<Arista>();
-	private Arista[] aristasVector;
 	
 	public Prim(Scanner entrada) {
 		int nodo1, nodo2, costo;
@@ -25,23 +24,12 @@ public class Prim {
 		this.cantidadNodos = entrada.nextInt();
 		this.cantidadAristasTotal = entrada.nextInt();
 		this.matrizAdyacencia = new int[this.cantidadNodos][this.cantidadNodos];
-//		for(int[] row:matrizAdyacencia )
-//			Arrays.fill(row, (int)Integer.MAX_VALUE);
-//		for(int i = 0; i < this.cantidadAristasTotal; i++) {
-//			arista1 = entrada.nextInt() - 1;
-//			arista2 = entrada.nextInt() - 1;
-//			costo = entrada.nextInt() - 1;
-//			this.matrizAdyacencia[arista1][arista2] = costo;
-//		}
 		for(int i = 0; i < this.cantidadAristasTotal; i++) {
 			nodo1 = entrada.nextInt() - 1;
 			nodo2 = entrada.nextInt() - 1;
 			costo = entrada.nextInt() - 1;
 			this.aristas.add(new Arista(nodo1, nodo2, costo));
 		}
-		this.aristasVector = new Arista[this.aristas.size()];
-		this.aristasVector = aristas.toArray(new Arista[this.aristas.size()]);
-		aristas.clear();
 	}
 	
 	private void inicializarListas(int nodo) {
@@ -53,14 +41,6 @@ public class Prim {
 		}
 	}
 	
-	private void calcularMenor() {
-		Integer menor;
-		int nodoUso;
-		for(int i=0; i<this.visitados.size(); i++) {
-			nodoUso = this.visitados.get(i);
-			for(in)
-		}
-	}
 	
 	public void calcularCosto(int nodo) {
 		this.inicializarListas(nodo);
