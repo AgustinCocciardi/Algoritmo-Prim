@@ -53,7 +53,7 @@ public class Prim {
 		int i=0;
 		while(i < this.cantidadAristasTotal && encontrado == false) {
 			arista = this.aristas.get(i);
-			if(this.visitados.contains(arista.getNodo1()) == false && 
+			if(this.visitados.contains(arista.getNodo1()) == false || 
 					this.visitados.contains(arista.getNodo2()) == false){
 				if(this.visitados.contains(arista.getNodo1()) == false) {
 					this.visitados.add(this.noVisitados.remove(arista.getNodo1()));
