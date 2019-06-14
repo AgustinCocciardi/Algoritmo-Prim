@@ -53,15 +53,16 @@ public class Prim {
 		int i=0;
 		while(i < this.cantidadAristasTotal && encontrado == false) {
 			arista = this.aristas.get(i);
-			if(this.visitados.contains(arista.getNodo1()) == false || 
-					this.visitados.contains(arista.getNodo2()) == false){
-				if(this.visitados.contains(arista.getNodo1()) == false) {
-					this.visitados.add(this.noVisitados.remove(arista.getNodo1()));
-				}
-				if(this.visitados.contains(arista.getNodo2()) == false) {
-					this.visitados.add(this.noVisitados.remove(arista.getNodo2()));
-				}
+			if((this.visitados.contains(arista.getNodo1()) == false &&
+					this.visitados.contains(arista.getNodo2()) == true) || 
+					(this.visitados.contains(arista.getNodo1()) == true &&
+					this.visitados.contains(arista.getNodo2()) == false)) {
 				encontrado = true;
+				if(this.visitados.contains(arista.getNodo1()) == false)
+					this.visitados.add(this.noVisitados.remove(arista.getNodo1()));
+				else 
+					this.visitados.add(this.noVisitados.remove(arista.getNodo2()));
+				this.aristas.remove(i);
 			}
 			i++;
 		}
