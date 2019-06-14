@@ -31,6 +31,11 @@ public class Arista implements Comparable<Arista> {
 	}
 	
 	@Override
+	public String toString() {
+		return nodo1 + " <-> " + nodo2 + " Costo = " + costo;
+	}
+	
+	@Override
 	public int compareTo(Arista arista) {
 		return this.costo - arista.costo;
 	}

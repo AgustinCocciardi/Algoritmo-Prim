@@ -49,6 +49,8 @@ public class Prim {
 	
 	private Arista seAgrega() {
 		Arista arista = null;
+		int eliminar;
+		Integer eliminado;
 		boolean encontrado = false;
 		int i=0;
 		while(i < this.cantidadAristasTotal && encontrado == false) {
@@ -58,10 +60,19 @@ public class Prim {
 					(this.visitados.contains(arista.getNodo1()) == true &&
 					this.visitados.contains(arista.getNodo2()) == false)) {
 				encontrado = true;
-				if(this.visitados.contains(arista.getNodo1()) == false)
-					this.visitados.add(this.noVisitados.remove(arista.getNodo1()));
-				else 
-					this.visitados.add(this.noVisitados.remove(arista.getNodo2()));
+				if(this.visitados.contains(arista.getNodo1()) == false) {
+					eliminar = arista.getNodo1();
+					this.visitados.add(eliminar);
+					eliminado = (Integer) eliminar;
+					this.noVisitados.remove(eliminado);
+				}
+				else {
+					eliminar = arista.getNodo2();
+					this.visitados.add(eliminar);
+					eliminado = (Integer) eliminar;
+					this.noVisitados.remove(eliminado);
+				}
+					
 				this.aristas.remove(i);
 			}
 			i++;
@@ -75,6 +86,7 @@ public class Prim {
 		while(this.cantidadAristasUsadas != this.cantidadNodos-1) {
 			aux = seAgrega();
 			this.grafo.add(aux);
+			this.costo += aux.getCosto();
 			this.cantidadAristasUsadas++;
 		}
 	}
@@ -83,12 +95,20 @@ public class Prim {
 		System.out.println("El arbol abarcador de costo minimo tiene un costo de: " + this.costo);
 	}
 	
+	private void mostrarArbol() {
+		System.out.println("Aristas del grafo: ");
+		for(int i=0; i<this.grafo.size(); i++) {
+			System.out.println(this.grafo.get(i).toString());
+		}
+	}
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner entrada = new Scanner(new FileReader("prim.in"));
 		Prim prim = new Prim(entrada);
 		entrada.close();
 		prim.calcularCosto(3);
 		prim.mostrarCosto();
+		prim.mostrarArbol();
 	}
 
 }
